@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use App\Test\ClassA;
 use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -11,9 +12,10 @@ class ControllerListener implements EventSubscriberInterface
 {
     protected $om;
 
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, ClassA $a)
     {
         $this->om = $om;
+        $this->a = $a;
     }
 
     /**
