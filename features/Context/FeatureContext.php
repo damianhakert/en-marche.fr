@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Behat\Context;
+
 use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Cake\Chronos\Chronos;

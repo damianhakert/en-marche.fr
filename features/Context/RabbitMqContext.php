@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Behat\Context;
+
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Coduo\PHPMatcher\PHPUnit\PHPMatcherAssertions;

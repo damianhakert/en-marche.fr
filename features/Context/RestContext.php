@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Behat\Context;
+
 use App\Entity\Adherent;
 use App\Entity\Device;
 use App\Entity\OAuth\AccessToken;
@@ -14,7 +16,6 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behatch\Context\RestContext as BehatchRestContext;
-use Behatch\HttpCall\HttpCallResultPool;
 use Behatch\HttpCall\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Server\CryptKey;
@@ -23,7 +24,6 @@ use Ramsey\Uuid\Uuid;
 
 class RestContext extends BehatchRestContext
 {
-    private $httpCallResultPool;
     private $entityManager;
     private $privateCryptKey;
 
@@ -31,17 +31,11 @@ class RestContext extends BehatchRestContext
      * @var string|null
      */
     private $accessToken;
-    private $authorizationCode;
 
-    public function __construct(
-        Request $request,
-        HttpCallResultPool $httpCallResultPool,
-        EntityManagerInterface $entityManager,
-        string $sslPrivateKey
-    ) {
+    public function __construct(Request $request, EntityManagerInterface $entityManager, string $sslPrivateKey)
+    {
         parent::__construct($request);
 
-        $this->httpCallResultPool = $httpCallResultPool;
         $this->entityManager = $entityManager;
         $this->privateCryptKey = new CryptKey($sslPrivateKey);
     }
@@ -144,11 +138,13 @@ class RestContext extends BehatchRestContext
     }
 
     /**
-     * @throws Exception when no access_token is provided
+     * @throws \Exception when no access_token is provided
      */
     public function getAccessTokenFromLastResponse(): string
     {
-        $json = json_decode($this->httpCallResultPool->getResult()->getValue(), true);
+        $response = $this->getClient()->getResponse();
+
+        $json = json_decode($response->getContent(), true);
 
         if (!isset($json['access_token'])) {
             throw new \Exception('No access token provided in the last HTTP response');

@@ -13,6 +13,19 @@ services:
         autowire: true
         autoconfigure: true
         public: true
+        bind:
+            $sslPrivateKey: '%ssl_private_key%'
+
+    Tests\Behat\Context\:
+        resource: '../features/Context/*'
+
+    Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader: '@doctrine.fixtures.loader'
+
+    Behatch\HttpCall\HttpCallResultPool: ~
+    behatch.http_call.result_pool: '@Behatch\HttpCall\HttpCallResultPool'
+
+    Behatch\HttpCall\Request: ~
+    behatch.http_call.request: '@Behatch\HttpCall\Request'
 
     app.map.google_maps_static_provider:
         class: 'Tests\App\Test\Map\DummyStaticMapProvider'

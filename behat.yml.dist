@@ -9,38 +9,27 @@ default:
                     screenshotDir: 'var/behat'
                 - Behatch\Context\XmlContext
                 - Behatch\Context\TableContext
-                - FixtureContext:
-                    fixturesLoader: '@Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader'
-                    manager: "@doctrine.orm.default_entity_manager"
-                - RestContext:
-                    sslPrivateKey: "%%ssl_private_key%%"
-                    entityManager: "@doctrine.orm.default_entity_manager"
-                - JsonContext
-                - RabbitMqContext:
-                    container: "@service_container"
-                - SyncWithAPIContext:
-                    doctrine: "@doctrine"
-                    dispatcher: "@event_dispatcher"
-                - EmailContext
-                - ReferentTagContext:
-                    adherentRepository: "@App\\Repository\\AdherentRepository"
-                - SecurityContext
-                - FeatureContext
-                - DonationContext
+                - Tests\Behat\Context\FixtureContext
+                - Tests\Behat\Context\RestContext
+                - Tests\Behat\Context\JsonContext
+                - Tests\Behat\Context\RabbitMqContext
+                - Tests\Behat\Context\SyncWithAPIContext
+                - Tests\Behat\Context\EmailContext
+                - Tests\Behat\Context\ReferentTagContext
+                - Tests\Behat\Context\SecurityContext
+                - Tests\Behat\Context\FeatureContext
+                - Tests\Behat\Context\DonationContext
     extensions:
-        Behat\Symfony2Extension:
-            kernel:
-                bootstrap: features/bootstrap/bootstrap.php
-                class: App\Kernel
+        Behatch\Extension: ~
+        FriendsOfBehat\SymfonyExtension: ~
         Behat\MinkExtension:
             base_url: "http://test.enmarche.code"
             sessions:
                 default:
-                    symfony2: ~
+                    symfony: ~
                 javascript:
                     selenium2:
                         capabilities:
                             version: ''
                         wd_host: http://selenium:4444/wd/hub
-        Behatch\Extension: ~
         Bex\Behat\SkipTestsExtension: ~

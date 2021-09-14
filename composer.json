@@ -10,7 +10,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\App\\": "tests/"
+            "Tests\\App\\": "tests/",
+            "Tests\\Behat\\": "features/"
         }
     },
     "config": {
@@ -129,18 +130,18 @@
         "zendframework/zend-diactoros": "^2.2"
     },
     "require-dev": {
-        "behat/mink": "^1.7",
-        "behat/mink-browserkit-driver": "^1.3",
-        "behat/mink-extension": "^2.2",
-        "behat/mink-selenium2-driver": "^1.3",
-        "behat/symfony2-extension": "^2.1",
-        "behatch/contexts": "^2.7",
+        "behat/behat": "^3.8",
+        "behat/mink-selenium2-driver": "^1.4",
+        "behatch/contexts": "dev-fix-httpcall-listener",
         "bex/behat-skip-tests": "^1.2",
         "coduo/php-matcher": "^5.0",
         "dama/doctrine-test-bundle": "^6.5",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "fabpot/goutte": "^3.2",
         "fakerphp/faker": "^1.13",
+        "friends-of-behat/mink": "^1.9",
+        "friends-of-behat/mink-browserkit-driver": "^1.5",
+        "friends-of-behat/symfony-extension": "^2.2",
         "friendsofphp/php-cs-fixer": "^3.0",
         "league/flysystem-memory": "^1.0",
         "pedrotroller/php-cs-custom-fixer": "^2.25",
@@ -189,6 +190,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/ottaviano/cartographer"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ottaviano/contexts"
         }
     ],
     "conflict": {
